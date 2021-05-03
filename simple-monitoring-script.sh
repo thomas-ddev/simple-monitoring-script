@@ -41,7 +41,7 @@ if test $(cat /var/log/mysql/error.log | grep "error" | grep "$DATEMYSQL" | wc -
 fi
 
 # Vérifier s'il y a des erreurs Nginx
-if test $(cat /var/log/nginx/error.log | grep "$DATENGINX" | wc -c) -ne 0
+if test $(cat /var/log/nginx/error.log | grep "error" | grep "$DATENGINX" | wc -c) -ne 0
      then
           swaks -t $EMAIL -s $MAILSERVER -tls -au $EMAIL --ap $PASSWORD -f $EMAIL --h-Subject "[ALERTE] Des erreurs Nginx sont présentes dans les logs !" --body "Une ou plusieurs erreurs ont étés détectées dans les logs Nginx. Cela peut signifier que le serveur nécessite une optimisation de sa configuration Nginx. (cat /var/log/nginx/error.log)"
      else
