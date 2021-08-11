@@ -55,3 +55,9 @@ if test $(cat /var/log/nginx/error.log | grep "crit" | grep "$DATENGINX" | wc -c
      else
           echo "Aucune erreur Nginx détectée."
 fi
+
+# Monitoring des ressources
+RAM="$(free -h)"
+HDD="$(df -h)"
+
+swaks -t $EMAIL -s $MAILSERVER -tls -au $EMAIL --ap $PASSWORD -f $EMAIL --h-Subject "[STATUS] [$HOSTNAME] Statut de la RAM et de l'espace disque" --body "Statut de la RAM : \n\n $RAM \n\n\nStatut de l'espace disque :\n\n $HDD"
